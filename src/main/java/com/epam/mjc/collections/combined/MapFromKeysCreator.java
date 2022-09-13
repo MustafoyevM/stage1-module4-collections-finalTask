@@ -9,9 +9,9 @@ public class MapFromKeysCreator {
     public Map<Integer, Set<String>> createMap(Map<String, Integer> sourceMap) {
         Map<Integer, Set<String>> map = new HashMap<>();
         try {
-            
+
             for (Map.Entry<String, Integer> temp : sourceMap.entrySet()) {
-                if (map.containsKey(temp.getKey().length()))
+                if (!map.containsKey(temp.getKey().length()))
                     map.put(temp.getKey().length(), Set.of(temp.getKey()));
                 else {
                     Set<String> temp2 = new HashSet<>();
@@ -22,7 +22,7 @@ public class MapFromKeysCreator {
             }
         }
         catch (Exception e){
-            
+
         }
         return map;
     }

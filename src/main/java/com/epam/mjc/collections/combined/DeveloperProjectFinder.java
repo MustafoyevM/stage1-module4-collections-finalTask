@@ -9,20 +9,30 @@ import java.util.Set;
 
 public class DeveloperProjectFinder {
     public List<String> findDeveloperProject(Map<String, Set<String>> projects, String developer) {
-        List<String> list = new ArrayList<>();
-        for (Map.Entry<String, Set<String>> temp : projects.entrySet()) {
-            for (String temp2 : temp.getValue() ) {
-                if(temp2.equals(developer)){
-                    list.add(temp.getKey());
-                }
-            }
-        }
-        Collections.sort(list, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.length() > o2.length() ? -1: 1;
+        List<String> result = new ArrayList<>();
+
+       //iterate map, if value contains D - save project
+        projects.forEach((key, value) -> {
+            if (value.contains(developer)) {
+                result.add(key);
             }
         });
-        return list;
+
+        result.sort((o1, o2) -> {
+            if (o1.length() > o2.length()) return -1;
+            else if (o1.length() < o2.length()) return 1;
+            else {
+               int temp =  o1.compareTo(o2) < 0 ?  1 : -1;
+               if (temp < 0) {
+                   return -1;
+               } else if (temp > 0) {
+                   return 1;
+               }
+               else {
+                   return 0;
+               }
+            }
+        });
+       return result;
     }
 }
